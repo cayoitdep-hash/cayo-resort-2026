@@ -1,96 +1,85 @@
+"use client";
+
 import { socialProofData } from "../../data/social-proof";
 
-function splitTitle(title: string) {
-  const lines = title.split("\n");
-
-  return lines.map((line, index) => (
-    <span key={`${line}-${index}`}>
-      {line}
-      {index < lines.length - 1 ? <br /> : null}
-    </span>
-  ));
-}
-
 export default function AwardsSection() {
+  const recognitions = socialProofData.recognitions;
+  const loop = [...recognitions, ...recognitions, ...recognitions];
+
   return (
-    <section className="pb-28 md:pb-36">
+    <section className="py-14 md:py-20">
       <div className="container">
-        <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:items-end">
-          <div>
-            <div className="eyebrow">{socialProofData.intro.eyebrow}</div>
+        <div className="mx-auto max-w-6xl overflow-hidden">
+          <div className="relative flex items-center">
+            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-[var(--background)] to-transparent md:w-36" />
+            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-[var(--background)] to-transparent md:w-36" />
 
-            <h2 className="mt-5 text-[clamp(3rem,6vw,5.8rem)] font-light leading-[0.92] tracking-[-0.05em]">
-              {splitTitle(socialProofData.intro.title)}
-            </h2>
-          </div>
-
-          <div>
-            <p className="max-w-xl text-[1.05rem] leading-8 text-neutral-600">
-              {socialProofData.intro.copy}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-16 overflow-hidden rounded-[40px] bg-white p-6 md:p-8" style={{ border: "1px solid var(--border)" }}>
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {socialProofData.recognitions.map((item) => {
-              const card = (
-                <div
-                  className="group flex min-h-[13rem] flex-col justify-between rounded-[28px] bg-[#faf8f4] p-6 transition duration-300 hover:-translate-y-1 hover:bg-white"
-                  style={{ border: "1px solid var(--border)" }}
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="eyebrow">Recognition</div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
-                      {item.year}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex flex-1 items-center justify-center">
-                    <img
-                      src={item.image}
-                      alt={`${item.title} ${item.year}`}
-                      className="max-h-[78px] w-auto max-w-full object-contain transition duration-300 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className="mt-6">
-                    <h3 className="text-[1rem] leading-7 text-neutral-700">
-                      {item.title}
-                    </h3>
-                  </div>
-                </div>
-              );
-
-              if (item.href && item.href !== "#") {
-                return (
-                  <a
-                    key={`${item.title}-${item.year}`}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block"
-                    aria-label={`${item.title} ${item.year}`}
-                  >
-                    {card}
-                  </a>
+            <div className="awards-strip-track flex w-max items-center gap-16 md:gap-24">
+              {loop.map((item, index) => {
+                const logo = (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="h-12 w-auto max-w-[150px] shrink-0 object-contain opacity-70 transition duration-500 hover:opacity-100 md:h-14 md:max-w-[175px]"
+                  />
                 );
-              }
 
-              return (
-                <div
-                  key={`${item.title}-${item.year}`}
-                  className="block"
-                  aria-label={`${item.title} ${item.year}`}
-                >
-                  {card}
-                </div>
-              );
-            })}
+                if (item.href && item.href !== "#") {
+                  return (
+                    <a
+                      key={`${item.title}-${item.year}-${index}`}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${item.title} ${item.year}`}
+                      className="flex shrink-0 items-center justify-center"
+                    >
+                      {logo}
+                    </a>
+                  );
+                }
+
+                return (
+                  <div
+                    key={`${item.title}-${item.year}-${index}`}
+                    className="flex shrink-0 items-center justify-center"
+                  >
+                    {logo}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        .awards-strip-track {
+          animation: awards-strip-scroll 55s linear infinite;
+          will-change: transform;
+        }
+
+        .awards-strip-track:hover {
+          animation-play-state: paused;
+        }
+
+        @keyframes awards-strip-scroll {
+          from {
+            transform: translate3d(0, 0, 0);
+          }
+
+          to {
+            transform: translate3d(-33.333%, 0, 0);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .awards-strip-track {
+            animation-duration: 38s;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -350,3 +350,28 @@ article {
     line-height: 1.85;
   }
 }
+/* Luxury awards strip */
+.awards-luxury-track {
+  animation: awards-luxury-scroll 46s linear infinite;
+  will-change: transform;
+}
+
+.awards-luxury-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes awards-luxury-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .awards-luxury-track {
+    animation-duration: 34s;
+  }
+}
