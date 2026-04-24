@@ -5,8 +5,13 @@ import { useEffect, useState } from "react";
 import { bookingLinks } from "../../data/booking";
 import { siteContent } from "../../data/site-content";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
+import { useLocale } from "../../lib/useLocale";
+import { getDictionary } from "../../lib/getDictionary";
 
 export default function Header() {
+  const locale = useLocale();
+  const t = getDictionary(locale);
+
   const [scrolled, setScrolled] = useState(false);
   const [accommodationOpen, setAccommodationOpen] = useState(false);
   const [eventsOpen, setEventsOpen] = useState(false);
@@ -16,9 +21,7 @@ export default function Header() {
   const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 26);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 26);
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -26,6 +29,7 @@ export default function Header() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -97,7 +101,7 @@ export default function Header() {
       <div className="container hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-8 xl:py-5">
         <div className="flex items-center gap-7">
           <Link href="/the-resort" className="nav-link whitespace-nowrap">
-            The Resort
+            {t.nav.resort}
           </Link>
 
           <div
@@ -106,7 +110,7 @@ export default function Header() {
             onMouseLeave={() => setAccommodationOpen(false)}
           >
             <button className="nav-link flex items-center gap-2 whitespace-nowrap">
-              Accommodation
+              {t.nav.accommodation}
               <span className="text-[10px]">▾</span>
             </button>
 
@@ -133,21 +137,20 @@ export default function Header() {
                     className="rounded-[22px] border bg-[#faf8f3] p-5"
                     style={{ borderColor: "var(--border)" }}
                   >
-                    <div className="eyebrow">Accommodation</div>
+                    <div className="eyebrow">
+                      {t.mega.accommodationEyebrow}
+                    </div>
                     <p className="mt-3 text-[0.96rem] leading-7 text-neutral-600">
-                      A structured collection of rooms and suites shaped by
-                      privacy, outdoor living, and uninterrupted views toward
-                      Spinalonga.
+                      {t.mega.accommodationCopy}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex flex-col justify-between">
                   <div>
-                    <div className="eyebrow">Stay Experience</div>
+                    <div className="eyebrow">{t.mega.stayExperience}</div>
                     <h3 className="mt-3 text-[2.2rem] font-light leading-[1.02] tracking-[-0.04em]">
-                      Explore the stay through clearly defined room and suite
-                      categories.
+                      {t.mega.stayTitle}
                     </h3>
                   </div>
 
@@ -157,10 +160,11 @@ export default function Header() {
                       className="mega-link rounded-[22px] border p-5"
                       style={{ borderColor: "var(--border)" }}
                     >
-                      <div className="text-2xl font-light">Overview</div>
+                      <div className="text-2xl font-light">
+                        {t.nav.accommodationOverview}
+                      </div>
                       <p className="mt-2 text-sm leading-6 text-neutral-600">
-                        Enter the full accommodation structure before exploring
-                        individual room and suite types.
+                        {t.mega.overviewCopy}
                       </p>
                     </Link>
 
@@ -169,10 +173,9 @@ export default function Header() {
                       className="mega-link rounded-[22px] border p-5"
                       style={{ borderColor: "var(--border)" }}
                     >
-                      <div className="text-2xl font-light">Rooms</div>
+                      <div className="text-2xl font-light">{t.nav.rooms}</div>
                       <p className="mt-2 text-sm leading-6 text-neutral-600">
-                        Eight room categories, from sea-view stays to
-                        private-pool family formats.
+                        {t.mega.roomsCopy}
                       </p>
                     </Link>
 
@@ -181,10 +184,9 @@ export default function Header() {
                       className="mega-link rounded-[22px] border p-5"
                       style={{ borderColor: "var(--border)" }}
                     >
-                      <div className="text-2xl font-light">Suites</div>
+                      <div className="text-2xl font-light">{t.nav.suites}</div>
                       <p className="mt-2 text-sm leading-6 text-neutral-600">
-                        Three suite categories designed around space, privacy,
-                        and elevated outdoor living.
+                        {t.mega.suitesCopy}
                       </p>
                     </Link>
                   </div>
@@ -194,11 +196,11 @@ export default function Header() {
           </div>
 
           <Link href="/dining" className="nav-link whitespace-nowrap">
-            Gastronomy
+            {t.nav.dining}
           </Link>
 
           <Link href="/wellness" className="nav-link whitespace-nowrap">
-            Wellness
+            {t.nav.wellness}
           </Link>
         </div>
 
@@ -208,11 +210,11 @@ export default function Header() {
 
         <div className="flex items-center justify-end gap-7">
           <Link href="/experiences" className="nav-link whitespace-nowrap">
-            Activities
+            {t.nav.activities}
           </Link>
 
           <Link href="/facilities" className="nav-link whitespace-nowrap">
-            Facilities
+            {t.nav.facilities}
           </Link>
 
           <div
@@ -221,7 +223,7 @@ export default function Header() {
             onMouseLeave={() => setEventsOpen(false)}
           >
             <button className="nav-link flex items-center gap-2 whitespace-nowrap">
-              Events
+              {t.nav.events}
               <span className="text-[10px]">▾</span>
             </button>
 
@@ -239,13 +241,12 @@ export default function Header() {
                   className="mega-link rounded-[22px] border p-5"
                   style={{ borderColor: "var(--border)" }}
                 >
-                  <div className="eyebrow">Celebrations</div>
+                  <div className="eyebrow">{t.mega.celebrations}</div>
                   <div className="mt-3 text-2xl font-light">
-                    Weddings & Ceremonies
+                    {t.nav.weddings}
                   </div>
                   <p className="mt-2 text-sm leading-6 text-neutral-600">
-                    Elegant celebrations shaped by destination setting, light,
-                    atmosphere, and refined hospitality.
+                    {t.mega.weddingsCopy}
                   </p>
                 </Link>
 
@@ -254,13 +255,12 @@ export default function Header() {
                   className="mega-link rounded-[22px] border p-5"
                   style={{ borderColor: "var(--border)" }}
                 >
-                  <div className="eyebrow">Business Events</div>
+                  <div className="eyebrow">{t.mega.businessEvents}</div>
                   <div className="mt-3 text-2xl font-light">
-                    Conference Facilities
+                    {t.nav.conference}
                   </div>
                   <p className="mt-2 text-sm leading-6 text-neutral-600">
-                    Professional gatherings and meetings framed within a more
-                    premium hospitality environment.
+                    {t.mega.conferenceCopy}
                   </p>
                 </Link>
               </div>
@@ -271,7 +271,7 @@ export default function Header() {
                   className="inline-flex min-h-12 items-center justify-center rounded-[18px] border px-5 text-sm text-black/75 transition hover:text-black"
                   style={{ borderColor: "var(--border)" }}
                 >
-                  View Events Overview
+                  {t.nav.eventsOverview}
                 </Link>
               </div>
             </div>
@@ -283,18 +283,18 @@ export default function Header() {
             rel="noreferrer"
             className="nav-link whitespace-nowrap"
           >
-            Rent an EV
+            {t.nav.rentEv}
           </a>
 
           <Link href="/offers" className="nav-link whitespace-nowrap">
-            Offers
+            {t.nav.offers}
           </Link>
 
           <Link
             href="/contact"
-            className="text-sm text-black/70 transition hover:text-black whitespace-nowrap"
+            className="whitespace-nowrap text-sm text-black/70 transition hover:text-black"
           >
-            Contact
+            {t.nav.contact}
           </Link>
 
           <LanguageSwitcher />
@@ -303,9 +303,9 @@ export default function Header() {
             href={bookingLinks.general}
             target="_blank"
             rel="noreferrer"
-            className="cta-button text-sm whitespace-nowrap"
+            className="cta-button whitespace-nowrap text-sm"
           >
-            Book Now
+            {t.nav.bookNow}
           </a>
         </div>
       </div>
@@ -317,13 +317,15 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <Link href="/accommodation" className="nav-link whitespace-nowrap">
-            Accommodation
+            {t.nav.accommodation}
           </Link>
+
           <Link href="/dining" className="nav-link whitespace-nowrap">
-            Gastronomy
+            {t.nav.dining}
           </Link>
+
           <Link href="/wellness" className="nav-link whitespace-nowrap">
-            Wellness
+            {t.nav.wellness}
           </Link>
 
           <LanguageSwitcher />
@@ -334,7 +336,7 @@ export default function Header() {
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
-            Menu
+            {t.nav.menu}
           </button>
         </div>
       </div>
@@ -387,7 +389,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            The Resort
+            {t.nav.resort}
           </Link>
 
           <button
@@ -396,7 +398,7 @@ export default function Header() {
               setMobileAccommodationOpen(!mobileAccommodationOpen)
             }
           >
-            <span>Accommodation</span>
+            <span>{t.nav.accommodation}</span>
             <span className="text-xs">
               {mobileAccommodationOpen ? "−" : "+"}
             </span>
@@ -418,7 +420,7 @@ export default function Header() {
                 className="mobile-sub-link"
                 onClick={() => setMobileOpen(false)}
               >
-                Overview
+                {t.nav.accommodationOverview}
               </Link>
 
               <Link
@@ -426,7 +428,7 @@ export default function Header() {
                 className="mobile-sub-link"
                 onClick={() => setMobileOpen(false)}
               >
-                Rooms
+                {t.nav.rooms}
               </Link>
 
               <Link
@@ -434,7 +436,7 @@ export default function Header() {
                 className="mobile-sub-link"
                 onClick={() => setMobileOpen(false)}
               >
-                Suites
+                {t.nav.suites}
               </Link>
             </div>
           </div>
@@ -444,7 +446,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Gastronomy
+            {t.nav.dining}
           </Link>
 
           <Link
@@ -452,7 +454,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Wellness
+            {t.nav.wellness}
           </Link>
 
           <Link
@@ -460,7 +462,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Activities
+            {t.nav.activities}
           </Link>
 
           <Link
@@ -468,14 +470,14 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Facilities
+            {t.nav.facilities}
           </Link>
 
           <button
             className="mobile-nav-link flex items-center justify-between"
             onClick={() => setMobileEventsOpen(!mobileEventsOpen)}
           >
-            <span>Events</span>
+            <span>{t.nav.events}</span>
             <span className="text-xs">{mobileEventsOpen ? "−" : "+"}</span>
           </button>
 
@@ -493,21 +495,23 @@ export default function Header() {
                 className="mobile-sub-link"
                 onClick={() => setMobileOpen(false)}
               >
-                Events Overview
+                {t.nav.eventsOverview}
               </Link>
+
               <Link
                 href="/weddings"
                 className="mobile-sub-link"
                 onClick={() => setMobileOpen(false)}
               >
-                Weddings & Ceremonies
+                {t.nav.weddings}
               </Link>
+
               <Link
                 href="/conference"
                 className="mobile-sub-link"
                 onClick={() => setMobileOpen(false)}
               >
-                Conference Facilities
+                {t.nav.conference}
               </Link>
             </div>
           </div>
@@ -519,7 +523,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Rent an EV
+            {t.nav.rentEv}
           </a>
 
           <Link
@@ -527,7 +531,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Offers
+            {t.nav.offers}
           </Link>
 
           <Link
@@ -535,7 +539,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Guest Information
+            {t.nav.guestInformation}
           </Link>
 
           <Link
@@ -543,7 +547,7 @@ export default function Header() {
             className="mobile-nav-link"
             onClick={() => setMobileOpen(false)}
           >
-            Contact
+            {t.nav.contact}
           </Link>
         </div>
 
@@ -559,7 +563,7 @@ export default function Header() {
             className="outline-button w-full justify-center"
             onClick={() => setMobileOpen(false)}
           >
-            Book Now
+            {t.nav.bookNow}
           </a>
         </div>
       </div>
