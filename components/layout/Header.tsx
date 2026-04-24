@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { bookingLinks } from "../../data/booking";
 import { siteContent } from "../../data/site-content";
+import LanguageSwitcher from "../ui/LanguageSwitcher";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -297,6 +298,8 @@ export default function Header() {
             Contact
           </Link>
 
+          <LanguageSwitcher />
+
           <a
             href={bookingLinks.general}
             target="_blank"
@@ -324,6 +327,9 @@ export default function Header() {
           <Link href="/wellness" className="nav-link whitespace-nowrap">
             Wellness
           </Link>
+
+          <LanguageSwitcher />
+
           <button
             className="inline-flex h-11 items-center justify-center rounded-full border px-4 text-sm"
             style={{ borderColor: "var(--border)" }}
@@ -339,14 +345,18 @@ export default function Header() {
       <div className="container flex items-center justify-between py-4 md:hidden">
         <MobileLogo />
 
-        <button
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border"
-          style={{ borderColor: "var(--border)" }}
-          onClick={() => setMobileOpen(true)}
-          aria-label="Open menu"
-        >
-          <span className="text-xl">☰</span>
-        </button>
+        <div className="flex items-center gap-4">
+          <LanguageSwitcher />
+
+          <button
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border"
+            style={{ borderColor: "var(--border)" }}
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+          >
+            <span className="text-xl">☰</span>
+          </button>
+        </div>
       </div>
 
       {/* Mobile overlay */}
@@ -542,7 +552,11 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-8 flex justify-center">
+          <LanguageSwitcher />
+        </div>
+
+        <div className="mt-8">
           <a
             href={bookingLinks.general}
             target="_blank"
