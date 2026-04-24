@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import VideoHero from "../components/ui/VideoHero";
@@ -10,8 +12,22 @@ import BookingCTA from "../components/sections/BookingCTA";
 import AwardsSection from "../components/sections/AwardsSection";
 import HomeHeroBookingBar from "../components/ui/HomeHeroBookingBar";
 import { pageMedia } from "../data/page-media";
+import { useLocale } from "../lib/useLocale";
+import { getDictionary } from "../lib/getDictionary";
+
+function splitTitle(title: string) {
+  return title.split("\n").map((line, index, lines) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </span>
+  ));
+}
 
 export default function Home() {
+  const locale = useLocale();
+  const t = getDictionary(locale);
+
   return (
     <main className="bg-[var(--background)] text-[var(--foreground)]">
       <Header />
@@ -23,20 +39,14 @@ export default function Home() {
         <HomeHeroBookingBar />
 
         <div className="max-w-5xl pt-[15.5rem] md:pt-[18.5rem]">
-          <div className="eyebrow text-white/70">
-            Cayo Exclusive Resort &amp; Spa
-          </div>
+          <div className="eyebrow text-white/70">{t.home.eyebrow}</div>
 
           <h1 className="mt-5 max-w-5xl text-[clamp(3.4rem,7vw,7.2rem)] font-light leading-[0.88] tracking-[-0.055em] text-white">
-            A new expression
-            <br />
-            of luxury in Crete.
+            {splitTitle(t.home.title)}
           </h1>
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/82 md:text-[1.05rem] md:leading-8">
-            Architecture, privacy, gastronomy, wellness, and immersive
-            destination experience come together in a refined resort setting
-            overlooking the island of Spinalonga.
+            {t.home.copy}
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -46,14 +56,14 @@ export default function Home() {
               rel="noreferrer"
               className="cta-button"
             >
-              Book Your Stay
+              {t.home.book}
             </a>
 
             <a
               href="#home-overview"
               className="outline-button !border-white/35 !text-white"
             >
-              Explore More
+              {t.home.explore}
             </a>
           </div>
         </div>

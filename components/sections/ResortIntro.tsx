@@ -1,44 +1,51 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale } from "../../lib/useLocale";
+import { getDictionary } from "../../lib/getDictionary";
+
+function splitTitle(title: string) {
+  return title.split("\n").map((line, index, lines) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </span>
+  ));
+}
 
 export default function ResortIntro() {
+  const locale = useLocale();
+  const t = getDictionary(locale);
+
   return (
     <section className="relative py-28 md:py-36">
       <div className="container">
         <div className="grid gap-16 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           
-          {/* TEXT BLOCK */}
+          {/* TEXT */}
           <div>
-            <div className="eyebrow">The Resort</div>
+            <div className="eyebrow">{t.resortIntro.eyebrow}</div>
 
             <h2 className="mt-5 text-[clamp(3rem,6vw,6rem)] font-light leading-[0.92] tracking-[-0.05em]">
-              A destination
-              <br />
-              shaped by
-              <br />
-              architecture,
-              <br />
-              privacy, and view.
+              {splitTitle(t.resortIntro.title)}
             </h2>
 
             <p className="mt-8 max-w-xl text-[1.05rem] leading-8 text-neutral-600">
-              Rising above Elounda, Cayo Exclusive Resort &amp; Spa introduces a
-              more architectural expression of luxury, where space, material,
-              and landscape create a seamless connection between stay,
-              experience, and place.
+              {t.resortIntro.copy}
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
               <Link href="/the-resort" className="cta-button">
-                Discover the Resort
+                {t.resortIntro.ctaPrimary}
               </Link>
 
               <Link href="/contact" className="outline-button">
-                Contact Concierge
+                {t.resortIntro.ctaSecondary}
               </Link>
             </div>
           </div>
 
-          {/* IMAGE BLOCK */}
+          {/* IMAGE */}
           <div className="relative">
             <div
               className="h-[38rem] rounded-[38px] bg-[#d9d2c7]"
@@ -49,12 +56,10 @@ export default function ResortIntro() {
               }}
             />
 
-            {/* FLOATING DETAIL */}
             <div className="absolute -bottom-10 left-6 right-6 rounded-[24px] bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-              <div className="eyebrow">Location</div>
+              <div className="eyebrow">{t.resortIntro.locationTitle}</div>
               <p className="mt-2 text-sm text-neutral-600 leading-7">
-                Elevated above Plaka village, overlooking the island of
-                Spinalonga and the Mirabello Bay.
+                {t.resortIntro.locationCopy}
               </p>
             </div>
           </div>

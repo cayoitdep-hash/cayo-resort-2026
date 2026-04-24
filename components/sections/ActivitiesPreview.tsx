@@ -1,62 +1,49 @@
-import Link from "next/link";
+"use client";
 
-const activityCards = [
-  {
-    title: "Sea & Watersports",
-    copy:
-      "A direct connection to the water through movement, freedom, and the lighter rhythm of the coast.",
-    image: "/images/experiences/preview-sea.jpg",
-  },
-  {
-    title: "Boat Excursions & Spinalonga",
-    copy:
-      "Private and shared sea journeys that expand the resort experience into the wider landscape of Elounda.",
-    image: "/images/experiences/preview-boat.jpg",
-  },
-  {
-    title: "Nature, Culture & Attractions",
-    copy:
-      "A more grounded sense of place through local routes, scenery, heritage, and curated destination moments.",
-    image: "/images/experiences/preview-culture.jpg",
-  },
-];
+import Link from "../ui/LocalizedLink";
+import { useLocale } from "../../lib/useLocale";
+import { getDictionary } from "../../lib/getDictionary";
+
+function splitTitle(title: string) {
+  return title.split("\n").map((line, index, lines) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </span>
+  ));
+}
 
 export default function ActivitiesPreview() {
+  const locale = useLocale();
+  const t = getDictionary(locale).activitiesPreview;
+
   return (
     <section className="pb-28 md:pb-36">
       <div className="container">
         <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:items-end">
           <div>
-            <div className="eyebrow">Experiences</div>
+            <div className="eyebrow">{t.eyebrow}</div>
 
             <h2 className="mt-5 text-[clamp(3rem,6vw,5.8rem)] font-light leading-[0.92] tracking-[-0.05em]">
-              Sea, landscape,
-              <br />
-              culture, and
-              <br />
-              destination-led
-              <br />
-              discovery.
+              {splitTitle(t.title)}
             </h2>
           </div>
 
           <div>
             <p className="max-w-xl text-[1.05rem] leading-8 text-neutral-600">
-              Beyond the stay itself, Cayo opens into a wider experience of sea,
-              landscape, and local character, bringing guests closer to the
-              atmosphere of Elounda and Crete.
+              {t.copy}
             </p>
 
             <div className="mt-8">
               <Link href="/experiences" className="outline-button">
-                Explore Experiences
+                {t.cta}
               </Link>
             </div>
           </div>
         </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {activityCards.map((item) => (
+          {t.cards.map((item) => (
             <article
               key={item.title}
               className="group overflow-hidden rounded-[34px] bg-white"
@@ -76,7 +63,7 @@ export default function ActivitiesPreview() {
               </div>
 
               <div className="p-7 md:p-8">
-                <div className="eyebrow">Destination Experience</div>
+                <div className="eyebrow">{t.cardEyebrow}</div>
 
                 <h3 className="mt-4 text-[2rem] font-light leading-[1.04] tracking-[-0.035em]">
                   {item.title}
