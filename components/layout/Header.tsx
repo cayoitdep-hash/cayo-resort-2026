@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "../ui/LocalizedLink";
 import { useEffect, useState } from "react";
 import { bookingLinks } from "../../data/booking";
 import { siteContent } from "../../data/site-content";
@@ -94,7 +94,6 @@ export default function Header() {
       }`}
       style={{ borderColor: "var(--border)" }}
     >
-      {/* Desktop */}
       <div className="container hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-8 xl:py-5">
         <div className="flex items-center gap-7">
           <Link href="/the-resort" className="nav-link whitespace-nowrap">
@@ -311,7 +310,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Tablet / smaller desktop */}
       <div className="container hidden items-center justify-between py-4 md:flex xl:hidden">
         <div className="flex items-center gap-5">
           <DesktopLogo />
@@ -341,7 +339,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile */}
       <div className="container flex items-center justify-between py-4 md:hidden">
         <MobileLogo />
 
@@ -359,7 +356,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile overlay */}
       <div
         className={`fixed inset-0 z-[60] bg-black/40 transition ${
           mobileOpen ? "visible opacity-100" : "invisible opacity-0"
@@ -367,7 +363,6 @@ export default function Header() {
         onClick={() => setMobileOpen(false)}
       />
 
-      {/* Mobile / tablet drawer */}
       <div
         className={`fixed right-0 top-0 z-[70] h-screen w-[88vw] max-w-[430px] bg-white px-6 py-6 transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
