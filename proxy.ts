@@ -3,7 +3,7 @@ import { defaultLocale, isLocale } from "./lib/i18n";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (
@@ -13,6 +13,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/logo") ||
     pathname.startsWith("/images") ||
     pathname.startsWith("/videos") ||
+    pathname === "/robots.txt" ||
+    pathname === "/sitemap.xml" ||
     PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
@@ -49,5 +51,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico).*)"],
+  matcher: ["/((?!_next|api|favicon.ico|robots.txt|sitemap.xml).*)"],
 };

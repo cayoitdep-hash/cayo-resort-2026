@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { siteContent } from "./site-content";
+import { locales, type Locale } from "../lib/i18n";
 
-const siteUrl = "https://www.cayoresort.com";
+export const siteUrl = "https://www.cayoresort.com";
 const siteName = siteContent.brand.name;
 
 type BuildMetadataInput = {
@@ -9,22 +10,42 @@ type BuildMetadataInput = {
   description: string;
   path: string;
   image?: string;
+  locale?: Locale;
 };
+
+const localeMap: Record<Locale, string> = {
+  en: "en_GB",
+  el: "el_GR",
+  de: "de_DE",
+};
+
+function withLocale(path: string, locale: Locale) {
+  if (path === "/") return `/${locale}`;
+  return `/${locale}${path}`;
+}
 
 export function buildMetadata({
   title,
   description,
   path,
   image = "/images/og/default.jpg",
+  locale = "en",
 }: BuildMetadataInput): Metadata {
   const fullTitle = `${title} | ${siteName}`;
-  const canonicalUrl = `${siteUrl}${path}`;
+  const localizedPath = withLocale(path, locale);
+  const canonicalUrl = `${siteUrl}${localizedPath}`;
 
   return {
     title: fullTitle,
     description,
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        en: `${siteUrl}${withLocale(path, "en")}`,
+        el: `${siteUrl}${withLocale(path, "el")}`,
+        de: `${siteUrl}${withLocale(path, "de")}`,
+        "x-default": `${siteUrl}${withLocale(path, "en")}`,
+      },
     },
     openGraph: {
       title: fullTitle,
@@ -32,7 +53,7 @@ export function buildMetadata({
       url: canonicalUrl,
       siteName,
       type: "website",
-      locale: "en_GB",
+      locale: localeMap[locale],
       images: [
         {
           url: image,
