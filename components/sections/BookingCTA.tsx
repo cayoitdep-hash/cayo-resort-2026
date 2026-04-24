@@ -1,0 +1,83 @@
+import Link from "next/link";
+
+export default function BookingCTA() {
+  return (
+    <section className="pb-24 md:pb-32">
+      <div className="container">
+        <div className="overflow-hidden rounded-[42px] bg-[#171717] text-white">
+          <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+            {/* LEFT VISUAL PANEL */}
+            <div
+              className="relative min-h-[26rem] bg-[#1e1e1e]"
+              style={{
+                backgroundImage: "url('/images/home/booking-cta.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/18 to-transparent" />
+
+              <div className="absolute left-8 right-8 top-8 flex items-start justify-between">
+                <span className="rounded-full border border-white/20 bg-white/8 px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-white/82 backdrop-blur-md">
+                  Cayo Exclusive Resort &amp; Spa
+                </span>
+              </div>
+
+              <div className="absolute bottom-8 left-8 right-8">
+                <div className="eyebrow text-white/60">Reserve the Experience</div>
+                <h2 className="mt-4 text-[clamp(2.4rem,4.5vw,4.4rem)] font-light leading-[0.95] tracking-[-0.05em]">
+                  Begin the stay
+                  <br />
+                  before you even
+                  <br />
+                  arrive.
+                </h2>
+              </div>
+            </div>
+
+            {/* RIGHT TEXT PANEL */}
+            <div className="flex items-center px-8 py-12 md:px-12 md:py-14">
+              <div className="max-w-xl">
+                <div className="eyebrow text-white/60">Booking</div>
+
+                <p className="mt-6 text-[1.02rem] leading-8 text-white/72">
+                  From the first impression to the final selection of your room
+                  or suite, every part of the journey is designed to feel
+                  seamless, calm, and elevated.
+                </p>
+
+                <p className="mt-6 text-[1.02rem] leading-8 text-white/72">
+                  Explore availability, choose the stay that fits your rhythm,
+                  and move directly into a more refined experience of Crete.
+                </p>
+
+                <div className="mt-10 flex flex-wrap gap-4">
+                  <a
+                    href="https://cayoresort.reserve-online.net/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-white px-6 text-sm text-black transition duration-300 hover:opacity-90"
+                  >
+                    Check Availability
+                  </a>
+
+                  <Link
+                    href="/contact"
+                    className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full border border-white/25 bg-transparent px-6 text-sm text-white transition duration-300 hover:bg-white hover:text-black"
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+
+                <div className="mt-10 border-t border-white/10 pt-6 text-sm leading-7 text-white/50">
+                  Luxury, privacy, destination, and view — shaped into one
+                  uninterrupted resort experience.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

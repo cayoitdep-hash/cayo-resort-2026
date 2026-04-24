@@ -1,0 +1,7 @@
+/public/images/guest-information/hero.jpg
+/public/images/guest-information/arrival-departure.jpg
+/public/images/guest-information/room-comfort.jpg
+/public/images/guest-information/housekeeping-service.jpg
+/public/images/guest-information/family-services.jpg
+/public/images/guest-information/resort-facilities.jpg
+/public/images/guest-information/mobility-access.jpg
